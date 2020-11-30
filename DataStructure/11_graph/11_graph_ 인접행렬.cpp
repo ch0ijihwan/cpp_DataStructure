@@ -47,6 +47,7 @@ public:
 
 	void display(FILE *fp = stdout)
 	{							   //Vertex 을 2차원 배열 형태로 출력해줌
+
 		fprintf(fp, "%d\n", size); //문자열 %d에 size 저장 후 출력
 		for (int i = 0; i < size; i++) // 가로줄 한줄 씩 출력하는 반복문
 		{
@@ -61,17 +62,17 @@ public:
 
 	void load(char *filename)
 	{
-		FILE *fp = fopen(filename, "r");
+		FILE *fp = fopen(filename, "r");//파일을 read 모드로 읽어옴.
 		if (fp != NULL)
 		{		   // 파일에 값이 있다면
 			int n; //int형으로 한글자씩 받음
-			fscanf(fp, "%d", &n);
+			fscanf(fp, "%d", &n); //읽은 값을 입력.
 			for (int i = 0; i < n; i++)
 			{
-				char str[80];
+				char str[80];	//임의의 배열에 값을 넣어줌.
 				fscanf(fp, "%s", str);
-				insertVertex(str[0]);
-				for (int j = 0; j < n; j++)
+				insertVertex(str[0]);// A,B,C,D를 입력 받음
+				for (int j = 0; j < n; j++)// 하나하나 받아주고 그래프 생성
 				{
 					int val;
 					fscanf(fp, "%d", &val);
@@ -98,28 +99,28 @@ public:
 
 };
 
-// int main()
-// {
-// 	AdjMatGraph g;
-// 	for (int i = 0; i < 4; i++)
-// 	{
-// 		g.insertVertex('A' + i);
-// 	}
+int main()
+{
+	AdjMatGraph g;
+	for (int i = 0; i < 4; i++)
+	{
+		g.insertVertex('A' + i);
+	}
 
-// 	g.insertEdge(0, 1);
-// 	g.insertEdge(0, 3);
-// 	g.insertEdge(1, 2);
-// 	g.insertEdge(1, 3);
-// 	g.insertEdge(2, 3);
+	g.insertEdge(0, 1);
+	g.insertEdge(0, 3);
+	g.insertEdge(1, 2);
+	g.insertEdge(1, 3);
+	g.insertEdge(2, 3);
 
-// 	cout << "인접 행렬로 표현한 그래프" << endl;
-// 	g.display();
-// 	g.store("graph.txt");
+	cout << "인접 행렬로 표현한 그래프" << endl;
+	g.display();
+	g.store("graph.txt");
 
-// 	g.reset();//그래프 내용을 비움
-// 	g.display();
+	g.reset();//그래프 내용을 비움
+	g.display();
 
-// 	g.load("graph.txt");//저장된 그래프를 불러옴
-// 	cout << "인접행렬로 표현한 그래프 (파일: graph.txt)" << endl;
-// 	g.display();//다시 출력
-// }
+	g.load("graph.txt");//저장된 그래프를 불러옴
+	cout << "인접행렬로 표현한 그래프 (파일: graph.txt)" << endl;
+	g.display();//다시 출력
+}
