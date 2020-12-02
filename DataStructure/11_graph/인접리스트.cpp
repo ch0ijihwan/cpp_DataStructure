@@ -6,7 +6,7 @@ using namespace std;
 class Node
 {
 protected:
-    int id;
+    int id; 
     Node *link;
 
 public:
@@ -47,7 +47,10 @@ public:
 
     bool isEmpty() {return size == 0;}
     bool isFull(){return size >=MAX;}
+
+
     char getVertex(int i){return vertices[i];}
+    
     void insertVertex(char val){
         if(!isFull()){
             vertices[size] = val;

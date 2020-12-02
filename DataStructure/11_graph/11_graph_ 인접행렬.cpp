@@ -6,17 +6,21 @@ using namespace std;
 class AdjMatGraph
 {
 protected:
-	int size;
+	int size; 
 	char vertices[MAX];
 	int adj[MAX][MAX]; //정적으로 할당함.
 
 public:
 	AdjMatGraph() { reset(); }
+
 	char getVertex(int i) { return vertices[i]; }
+
 	int getEdge(int i, int j) { return adj[i][j]; }
+
 	void setEdge(int i, int j, int val) { adj[i][j] = val; }
 
 	bool isEmpty() { return size == 0; }
+	
 	bool isFull() { return size >= MAX; }
 
 	void reset()
@@ -49,6 +53,7 @@ public:
 	{							   //Vertex 을 2차원 배열 형태로 출력해줌
 
 		fprintf(fp, "%d\n", size); //문자열 %d에 size 저장 후 출력
+
 		for (int i = 0; i < size; i++) // 가로줄 한줄 씩 출력하는 반복문
 		{
 			fprintf(fp, "%c ", getVertex(i)); // A,B,C,D 가 출력되는 부분
@@ -102,10 +107,13 @@ public:
 int main()
 {
 	AdjMatGraph g;
+
 	for (int i = 0; i < 4; i++)
 	{
 		g.insertVertex('A' + i);
 	}
+//
+
 
 	g.insertEdge(0, 1);
 	g.insertEdge(0, 3);
@@ -116,6 +124,7 @@ int main()
 	cout << "인접 행렬로 표현한 그래프" << endl;
 	g.display();
 	g.store("graph.txt");
+
 
 	g.reset();//그래프 내용을 비움
 	g.display();
