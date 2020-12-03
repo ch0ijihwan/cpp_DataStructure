@@ -3,7 +3,8 @@
 using namespace std;
 #define MAX 256
 
-class AdjMatGraph {
+class AdjMatGraph
+{
 protected:
 	int size;
 	char vertices[MAX];
@@ -18,123 +19,156 @@ public:
 	bool isEmpty() { return size == 0; }
 	bool isFull() { return size >= MAX; }
 
-	void reset() {
+	void reset()
+	{
 		size = 0;
-		for (int i = 0; i < MAX; i++) {
-			for (int j = 0; j < MAX; j++) {
+		for (int i = 0; i < MAX; i++)
+		{
+			for (int j = 0; j < MAX; j++)
+			{
 				setEdge(i, j, 0);
 			}
 		}
 	}
 
-	void insertVertex(char name) {
-		if (!isFull())vertices[size++] = name;
-		else cout << "Error: 그래프 점점 개수 초과" << endl;
+	void insertVertex(char name)
+	{
+		if (!isFull())
+			vertices[size++] = name;
+		else
+			cout << "Error: 그래프 점점 개수 초과" << endl;
 	}
 
-	void insertEdge(int u, int v) {
+	void insertEdge(int u, int v)
+	{
 		setEdge(u, v, 1);
 		setEdge(v, u, 1);
 	}
 
-	int getSize() {
+	int getSize()
+	{
 		return size;
 	}
-	void display(FILE* fp = stdout) {
+	void display(FILE *fp = stdout)
+	{
 		fprintf(fp, "%d\n", size);
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++)
+		{
 			fprintf(fp, "%c ", getVertex(i));
-			for (int j = 0; j < size; j++) {
+			for (int j = 0; j < size; j++)
+			{
 				fprintf(fp, "%3d", getEdge(i, j));
 			}
 			fprintf(fp, "\n");
 		}
 	}
 
-	void load(char* filename) {
-		FILE* fp = fopen(filename, "r");
-		if (fp != NULL) {
+	void load(char *filename)
+	{
+		FILE *fp = fopen(filename, "r");
+		if (fp != NULL)
+		{
 			int n;
 			fscanf(fp, "%d", &n);
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++)
+			{
 				char str[80];
 				fscanf(fp, "%s", str);
 				insertVertex(str[0]);
-				for (int j = 0; j < n; j++) {
+				for (int j = 0; j < n; j++)
+				{
 					int val;
 					fscanf(fp, "%d", &val);
-					if (val != 0) {
+					if (val != 0)
+					{
 						insertEdge(i, j);
 					}
 				}
 			}
 			fclose(fp);
-
 		}
 	}
 
-	void store(char* filename) {
-		FILE* fp = fopen(filename, "w");
-		if (fp != NULL) {
+	void store(char *filename)
+	{
+		FILE *fp = fopen(filename, "w");
+		if (fp != NULL)
+		{
 			display(fp);
 			fclose(fp);
 		}
 	}
 };
 
-
-class SrchAMGraph :public AdjMatGraph {
+class SrchAMGraph : public AdjMatGraph
+{
 protected:
 	bool visited[MAX];
+
 public:
-	void resetVisited() {
-		for (int i = 0; i < size; i++) {
+	void resetVisited()
+	{
+		for (int i = 0; i < size; i++)
+		{
 			visited[i] = false;
 		}
 	}
-	bool isLinked(int u, int v) {
+	bool isLinked(int u, int v)
+	{
 		return getEdge(u, v) != 0;
 	}
 
-	void DFS(int v) {
+	void DFS(int v)
+	{
 		visited[v] = true;
 		cout << getVertex(v) << " ";
 
-		for (int w = 0; w < size; w++) {
-			if (isLinked(v, w) && visited[w] == false) {
+		for (int w = 0; w < size; w++)
+		{
+			if (isLinked(v, w) && visited[w] == false)
+			{
 				DFS(w);
 			}
 		}
 	}
 };
 
-class ConnectedComponentGraph :public SrchAMGraph {
+class ConnectedComponentGraph : public SrchAMGraph
+{
 	int label[MAX];
+
 public:
-	void labelDFS(int v, int color) {
+	void labelDFS(int v, int color)
+	{
 		visited[v] = true;
 		label[v] = color;
-		for (int w = 0; w < size; w++) {
-			if (isLinked(v, w) && visited[w] == false) {
+		for (int w = 0; w < size; w++)
+		{
+			if (isLinked(v, w) && visited[w] == false)
+			{
 				labelDFS(w, color);
 			}
 		}
 	}
 
-	
-	int findBridge(ConnectedComponentGraph g) {
+	int findBridge(ConnectedComponentGraph g)
+	{
 		int i, j;
 		int count = 0;
 		g.resetVisited();
 
-		for (i = 0; i < g.getSize(); i++) {
-			for (j = 0; j < i; j++) {
-				if (g.getEdge(i, j) != 0) { //일단 간선을 짤라줌.
+		for (i = 0; i < g.getSize(); i++)
+		{
+			for (j = 0; j < i; j++)
+			{
+				if (g.getEdge(i, j) != 0)
+				{ //일단 간선을 짤라줌.
 					g.setEdge(i, j, 0);
 					g.setEdge(j, i, 0);
 
 					g.resetVisited(); //방문기록 초기화, 전부다 FLASE로 초기화
-					if (g.findConnectedComponent() > 1) { 
+					if (g.findConnectedComponent() > 1)
+					{
 						printf(" Bridge%d: %c-%c\n", count + 1, g.getVertex(i), g.getVertex(j));
 						count++;
 					}
@@ -143,44 +177,42 @@ public:
 				}
 			}
 		}
-		return count;	
-    }
-
-
-	int findConnectedComponent() {
-		int count = 0;
-		for (int i = 0; i < size; i++) {
-			if (visited[i] == false) {
-				labelDFS(i, ++count);  //위에서 간선을 끊어서, 
-			}
-		}
-		/*cout << "그래프의 연결성분 개수 == " << count << endl;
-		for (int i = 0; i < size; i++) {
-			cout << getVertex(i) << " = " << label[i]<<" ";
-		}
-		cout << endl;*/
-        
 		return count;
 	}
 
+	int findConnectedComponent()
+	{
+		int count = 0;
+		for (int i = 0; i < size; i++)
+		{
+			if (visited[i] == false)
+			{
+				labelDFS(i, ++count); //위에서 간선을 끊어서,
+			}
+		}
+		
+		return count;
+	}
 };
 
-
-int main() {
+int main()
+{
 	ConnectedComponentGraph g;
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 6; i++)
+	{
 		g.insertVertex('A' + i);
 	}
-	g.insertEdge(1, 0);
-	g.insertEdge(2, 0);
-
-    g.insertEdge(1,2);
-
+	g.insertEdge(0, 1);
+	g.insertEdge(0, 2);
+	g.insertEdge(1, 2);
+	g.insertEdge(1, 3);
+	g.insertEdge(3, 4);
+	g.insertEdge(4, 5);
+	g.insertEdge(3, 5);
 	cout << "연결 성분 테스트 그래프" << endl;
 
 	g.display();
 	g.resetVisited();
 	g.findConnectedComponent();
 	g.findBridge(g);
-
 }

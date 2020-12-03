@@ -185,6 +185,9 @@ int main(){
    
 	tree.setRoot(a);
 	tree.levelorder();
+    tree.preorder();
+    tree.inorder();
+    tree.postorder();
 	cout << "노드의 개수 : " << tree.getCount() << endl;	
 	cout << "단말의 개수 : " << tree.getLeafCount() << endl;
 	cout << "트리의 높이 : " << tree.getHeight() << endl;

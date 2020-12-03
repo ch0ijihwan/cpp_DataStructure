@@ -194,6 +194,30 @@ public:
         int hRight = getHeight(node->getRight());
         return (hLeft > hRight) ? hLeft + 1 : hRight + 1;
     }
+
+     int    calcSize()    { return calcSize(root); }
+    int calcSize(BinaryNode *node)    {
+        if( node == NULL ) return 0;
+        return node->getData() + calcSize(node->getLeft()) + calcSize(node->getRight());
+    }
+
+    int evaluate() { return evaluate(root); }
+
+    int evaluate(BinaryNode *node) {
+        if( node == NULL ) return 0;
+        if( node->isLeaf() ) return node->getData();
+        else {
+            int op1 = evaluate(node->getLeft());
+            int op2 = evaluate(node->getRight());
+            switch(node->getData()){
+                case '+': return op1+op2;
+                case '-': return op1-op2;
+                case '*': return op1*op2;
+                case '/': return op1/op2;
+            }
+            return 0;
+        }
+    }
 };
 //이진트리 탐색 시작.
 class BinSrchTree : public BinaryTree{
@@ -409,4 +433,6 @@ int main()
     cout << "단말의 개수 = " << tree.getLeafCount() << endl;
     
     cout << "트리의 높이 = " << tree.getHeight() << endl;
+
+    tree.calcSize();
 }
