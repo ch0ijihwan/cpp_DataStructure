@@ -7,7 +7,7 @@ private:
 	Node2* next;
 	int data;
 public:
-	Node2(int val = 0) :data(val),prev(NULL),next(NULL){}
+	Node2(int val = 0) :data(val), prev(NULL), next(NULL) {}
 	Node2* getPrev() { return prev; }
 	Node2* getNext() { return next; }
 	void setPrev(Node2* p) { prev = p; }
@@ -17,13 +17,12 @@ public:
 
 	void insertNext(Node2* n) {
 		if (n != NULL) {
-			n->prev = this; // n의 이전 포인터 즉, N-1이 기준으로 하고
-
-			n->next = next; //n의 next는 n-1의 next포인터. 즉 n+1과 연결 해줌.
+			n->prev = this;
+			n->next = next;
 			if (next != NULL) {
-				next->prev = n; //만약 N-1의 next가 가르키는 값이 있다면  n+1의 prev는 N이다. 
+				next->prev = n;
 			}
-			next = n; // 새로 넣어준n을 기존 N-1의 next로 넣어줌.
+			next = n;
 		}
 	}
 	Node2* remove() {
@@ -36,7 +35,7 @@ public:
 
 class DbLinkedList {
 private:
-	Node2 org;//Çìµå³ëµå
+	Node2 org;//헤드노드
 public:
 	DbLinkedList() :org(0) {}
 	~DbLinkedList() { while (!isEmpty())delete remove(0); }
@@ -76,23 +75,51 @@ public:
 	int size() {
 		int count = 0;
 		for (Node2* p = getHead(); p != NULL; p = p->getNext()) {
+			count++;
+		}
+		return count;
+	}
+
+	void display() {
+		cout << "이중연결리스트 항목수 : " << size();
+		for (Node2* p = getHead(); p != NULL; p = p->getNext()) {
 			p->display();
 		}
 		cout << endl;
 	}
 	void clear() { while (!isEmpty())delete remove(0); }
 };
+
+class LinkedDeque :public DbLinkedList {
+public:
+	void addFront(Node2* n) {
+		insert(0, n);
+	}
+	Node2* deleteFront() {
+		return remove(0);
+	}
+
+	Node2* getFront() { return getEntry(0); }
+	void addRear(Node2* n) {
+		insert(size(), n);
+	}
+	Node2* deleteRear() { return remove(size() - 1); }
+	Node2* getRear() { return getEntry(size() - 1); }
+
+};
+
 int main() {
+	LinkedDeque deq;
+	for (int i = 1; i < 10; i++) {
+		if (i % 2)deq.addFront(new Node2(i));
+		else deq.addRear(new Node2(i));
+	}
 
-DbLinkedList list;
+	deq.display();
+	delete deq.deleteFront();
+	delete deq.deleteRear();
+	delete deq.deleteFront();
+	deq.display();
 
 
-	list.insert(0,new Node2 (1));
-	list.insert(0,new Node2 (2));
-	list.insert(0,new Node2 (3));
-	list.insert(0,new Node2 (4));
-	list.insert(0,new Node2 (5));
-	list.insert(0,new Node2 (6));
-
-	new Node2(1);
 }

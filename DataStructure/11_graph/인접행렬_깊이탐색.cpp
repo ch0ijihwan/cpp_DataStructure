@@ -117,7 +117,7 @@ public:
 int main(){
     SrchANGraph g;
     g.display();
-    g.load("11_graph/test_graph.txt");
+    g.load("graph.txt");
 
     
     cout<<"그래프(test_graph.txt)"<< endl;

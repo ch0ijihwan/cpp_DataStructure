@@ -14,7 +14,7 @@ public:
 	
 	void insert(int pos, int e) {
 		if (!isFull() && pos >= 0 && pos <= length) {
-			for (int i = length; i > pos; i--) { //length는 i
+			for (int i = length; i > pos; i--) { //length는 i//뒤에서 부터 한칸씩 뒤로 미뤄주고 i 가 Pos랑 같아지면 그 자리에 e를 넣어줌.
 				data[i] = data[i - 1];
 			}
 			data[pos] = e;

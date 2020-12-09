@@ -392,47 +392,65 @@ public:
 
 int main()
 {
-    BinSrchTree tree;
+     BinSrchTree tree;
 
-    tree.insert(new BinaryNode(35));
-    tree.insert(new BinaryNode(18));
-    tree.insert(new BinaryNode(7));
-    tree.insert(new BinaryNode(26));
-    tree.insert(new BinaryNode(12));
-    tree.insert(new BinaryNode(3));
-    tree.insert(new BinaryNode(68));
-    tree.insert(new BinaryNode(22));
-    tree.insert(new BinaryNode(30));
-    tree.insert(new BinaryNode(99));
+    // tree.insert(new BinaryNode(35));
+    // tree.insert(new BinaryNode(18));
+    // tree.insert(new BinaryNode(7));
+    // tree.insert(new BinaryNode(26));
+    // tree.insert(new BinaryNode(12));
+    // tree.insert(new BinaryNode(3));
+    // tree.insert(new BinaryNode(68));
+    // tree.insert(new BinaryNode(22));
+    // tree.insert(new BinaryNode(30));
+    // tree.insert(new BinaryNode(99));
 
-    cout << "노드의 개수 = " << tree.getCount() << endl;
-    cout << "단말의 개수 = " << tree.getLeafCount() << endl;
-    cout << "트리의 높이 = " << tree.getHeight() << endl;
+    // cout << "노드의 개수 = " << tree.getCount() << endl;
+    // cout << "단말의 개수 = " << tree.getLeafCount() << endl;
+    // cout << "트리의 높이 = " << tree.getHeight() << endl;
 
-    tree.inorder();
-    tree.preorder();
-    tree.postorder();
-    tree.levelorder();
+    // tree.inorder();
+    // tree.preorder();
+    // tree.postorder();
+    // tree.levelorder();
 
-    tree.search(26);
-    tree.search(25);
-    cout << "CASE1 ==> 노드 3 삭제" << endl;
-    tree.remove(3);
-    tree.levelorder();
-    cout << "CASE2 ==> 노드 68 삭제" << endl;
-    tree.remove(68);
-    tree.levelorder();
-    cout << "CASE3 ==> 노드 18 삭제" << endl;
-    tree.remove(18);
-    tree.levelorder();
-    cout << "CASE3 ==> 노드 35 삭제" << endl;
-    tree.remove(35);
-    tree.levelorder();
+   
+    // tree.search(25);
+    // cout << "CASE1 ==> 노드 3 삭제" << endl;
+    // tree.remove(3);
+    // tree.levelorder();
+    // cout << "CASE2 ==> 노드 68 삭제" << endl;
+    // tree.remove(68);
+    // tree.levelorder();
+    // cout << "CASE3 ==> 노드 18 삭제" << endl;
+    // tree.remove(18);
+    // tree.levelorder();
+    // cout << "CASE3 ==> 노드 35 삭제" << endl;
+    // tree.remove(35);
+    // tree.levelorder();
 
-    cout << "노드의 개수 = " << tree.getCount() << endl;
-    cout << "단말의 개수 = " << tree.getLeafCount() << endl;
+    // cout << "노드의 개수 = " << tree.getCount() << endl;
+    // cout << "단말의 개수 = " << tree.getLeafCount() << endl;
     
-    cout << "트리의 높이 = " << tree.getHeight() << endl;
+    // cout << "트리의 높이 = " << tree.getHeight() << endl;
 
-    tree.calcSize();
+    // tree.calcSize();
+    tree.insert(new BinaryNode(5));
+	tree.insert(new BinaryNode(3));
+	tree.insert(new BinaryNode(7));
+	tree.insert(new BinaryNode(1));
+	tree.insert(new BinaryNode(4));
+	tree.insert(new BinaryNode(2));
+	tree.insert(new BinaryNode(9));
+	tree.insert(new BinaryNode(6));
+	tree.insert(new BinaryNode(8));
+	
+
+	cout << "노드의 개수 = " << tree.getCount() << endl;
+	cout << "단말의 개수 = " << tree.getLeafCount() << endl;
+	cout << "트리의 높이 = " << tree.getHeight() << endl;
+
+	tree.levelorder();
+
+
 }

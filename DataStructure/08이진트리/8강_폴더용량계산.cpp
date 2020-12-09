@@ -79,4 +79,5 @@ int main() {
 	BinaryNode* m2 = new BinaryNode(50, NULL, NULL);
 	BinaryNode* m1 = new BinaryNode(0, m2, m3);
 	tree3.setRoot(m1);
-	cout << "µð·ºÅÍ¸® ¿ë·® °è»ê °á°ú : " << tree3.calcSize() << endl;
+	cout << "폴더 용량은 : " << tree3.calcSize() << endl;
+}
